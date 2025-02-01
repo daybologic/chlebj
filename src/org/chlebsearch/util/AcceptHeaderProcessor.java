@@ -17,7 +17,7 @@ public class AcceptHeaderProcessor {
         );
     }
 
-	public void process(String input) {
+	public void process(String acceptHeader) {
 		List<String> supportedTypes = Arrays.asList("application/xml", "text/html", "application/json");
 
 		Optional<String> bestMatch = getBestMatch(acceptHeader, supportedTypes);
