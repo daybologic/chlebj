@@ -34,16 +34,18 @@ import com.fasterxml.jackson.databind.module.SimpleModule;*/
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+
 import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
 
 /**
  * Helper utilities for testing Lambda functions.
  */
 public class AcceptHeaderProcessorTest {
 
-	private AcceptHeaderProcessor sut
+	private AcceptHeaderProcessor sut;
 
-	@Before
+	@BeforeEach
 	public void setUp() {
 		sut = new AcceptHeaderProcessor();
 	}
