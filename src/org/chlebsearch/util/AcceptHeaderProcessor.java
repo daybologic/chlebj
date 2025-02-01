@@ -1,4 +1,4 @@
-package org.chleb-api.util;
+package org.chlebsearch.util;
 
 import java.util.*;
 import java.util.stream.Collectors;
