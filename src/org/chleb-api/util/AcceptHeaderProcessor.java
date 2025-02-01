@@ -5,7 +5,7 @@ import java.util.stream.Collectors;
 
 public class AcceptHeaderProcessor {
 
-    public static void main(String[] args) {
+    public static void __main(String[] args) {
         // Example usage
         String acceptHeader = "text/html,application/xhtml+xml,application/xml;q=0.9,/;q=0.8";
         List<String> supportedTypes = Arrays.asList("application/xml", "text/html", "application/json");
@@ -16,6 +16,16 @@ public class AcceptHeaderProcessor {
             () -> System.out.println("No match found.")
         );
     }
+
+	public void process(String input) {
+		List<String> supportedTypes = Arrays.asList("application/xml", "text/html", "application/json");
+
+		Optional<String> bestMatch = getBestMatch(acceptHeader, supportedTypes);
+		bestMatch.ifPresentOrElse(
+			type -> System.out.println("Best match: " + type),
+			() -> System.out.println("No match found.")
+		);
+	}
 
     /**
      * Processes the Accept header and returns the best match from the supported types.
