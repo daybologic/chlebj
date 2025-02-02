@@ -5,6 +5,10 @@ import java.util.stream.Collectors;
 
 public class AcceptHeaderProcessor {
 
+	public AcceptHeaderProcessor() {
+		// Method is intentionally left blank
+	}
+	
     public static void __main(String[] args) {
         // Example usage
         String acceptHeader = "text/html,application/xhtml+xml,application/xml;q=0.9,/;q=0.8";
