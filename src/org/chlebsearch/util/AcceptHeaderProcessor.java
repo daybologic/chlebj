@@ -9,14 +9,11 @@ public class AcceptHeaderProcessor {
 		// Method is intentionally left blank
 	}
 
-	public void process(String acceptHeader) {
+	public Optional<String> process(String acceptHeader) {
 		List<String> supportedTypes = Arrays.asList("application/xml", "text/html", "application/json");
 
 		Optional<String> bestMatch = getBestMatch(acceptHeader, supportedTypes);
-		bestMatch.ifPresentOrElse(
-			type -> System.out.println("Best match: " + type),
-			() -> System.out.println("No match found.")
-		);
+		return bestMatch;
 	}
 
 	/**
