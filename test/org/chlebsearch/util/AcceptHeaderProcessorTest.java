@@ -25,4 +25,21 @@ public class AcceptHeaderProcessorTest {
 		assertTrue(true); // FIXME: dummy test
 		sut.process(input);
 	}
+
+	@Test
+	public void simpleSuccess() {
+		sut.process("*/*");
+		sut.process("application/json");
+		sut.process("text/html");
+		sut.process("text/plain");
+		sut.process("text/*");
+		sut.process("application/*");
+		sut.process("application/json");
+	}
+
+	@Test
+	public void simpleFailure() {
+		sut.process("application/jsom");
+		sut.process("audio/basic");
+	}
 }
