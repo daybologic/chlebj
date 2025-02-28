@@ -8,7 +8,9 @@ import static org.junit.Assert.assertTrue;
 import java.util.Arrays;
 import java.util.List;
 
+import org.junit.rules.ExpectedException;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 
 /**
@@ -77,21 +79,24 @@ public class BooleanParserTest {
 		assertFalse("0 with default 1 is 0", BooleanParser.parse("0", "1"));
 	}
 
+	@Rule
+	public ExpectedException exceptionRule = ExpectedException.none();
 
-/*
+	@Test
+	public void defaultIllegal() throws BooleanParserException {
+		exceptionRule.expect(BooleanParserException.class);
+		exceptionRule.expectMessage("Illegal default value: 'stranger'");
 
-	sub testDefaultIllegal {
-		my ($self) = @_;
-		plan tests => 3;
+		final List<String> BASE_VALUES = Arrays.asList(
+			"unknown",
+			"1",
+			"0"
+		);
 
-		Readonly my @BASE_VALUES => ('unknown', 1, 0);
-
-		foreach my $v (@BASE_VALUES) {
-			throws_ok {
-				Chleb::Utils::boolean($v, 'stranger')
-			} qr/Illegal default value: 'stranger'/, "$v with default stranger is illegal";
+		for (final String v : BASE_VALUES) {
+			BooleanParser.parse(v, "stranger");
 		}
-
-		return EXIT_SUCCESS;
-	}*/
+		// TODO: I think this methods needs breaking up, or the exception might not be tested correctly in all three cases
+		// make a new defaultIllegal_unknown/1/0?
+	}
 }

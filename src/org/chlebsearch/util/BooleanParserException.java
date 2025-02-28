@@ -3,14 +3,14 @@ package org.chlebsearch.util;
 public class BooleanParserException extends Throwable {
 
 	public BooleanParserException() {
-//		super();
+		super();
 	}
 
 	public BooleanParserException(String errorMsg) {
-//		super(errorMsg);
+		super(errorMsg);
 	}
 
 	public BooleanParserException(String errorMsg, Exception e) {
-//		super(errorMsg, e);
+		super(errorMsg, e);
 	}
 }
