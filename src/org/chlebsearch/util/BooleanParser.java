@@ -52,4 +52,8 @@ public class BooleanParser {
 
 		return defaultValueReturned;
 	}
+
+	public static boolean parse(final String value) {
+		return parse(value, null);
+	}
 }
