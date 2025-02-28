@@ -32,7 +32,7 @@ public class BooleanParser {
 		return false;
 	}
 
-	public boolean parse(String value, String defaultValue) {
+	public static boolean parse(String value, String defaultValue) {
 		boolean defaultValueReturned = false;
 
 		if (defaultValue != null) {
