@@ -32,14 +32,14 @@ public class BooleanParser {
 		return false;
 	}
 
-	public static boolean parse(String value, String defaultValue) {
+	public static boolean parse(String value, String defaultValue) throws BooleanParserException {
 		boolean defaultValueReturned = false;
 
 		if (defaultValue != null) {
 			if (isTrue(defaultValue)) {
 				defaultValueReturned = true;
 			} else if (!isFalse(defaultValue)) {
-				throw new RuntimeException("Illegal default value: '" + defaultValue + "'");
+				throw new BooleanParserException("Illegal default value: '" + defaultValue + "'");
 			}
 		}
 
@@ -53,7 +53,7 @@ public class BooleanParser {
 		return defaultValueReturned;
 	}
 
-	public static boolean parse(final String value) {
+	public static boolean parse(final String value) throws BooleanParserException {
 		return parse(value, null);
 	}
 }

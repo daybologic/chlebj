@@ -37,14 +37,14 @@ public class BooleanParserTest {
 	);
 
 	@Test
-	public void trueLower() {
+	public void trueLower() throws BooleanParserException {
 		for (final String v : TRUE_VALUES) {
 			assertTrue("value: " + v, BooleanParser.parse(v));
 		}
 	}
 
 	@Test
-	public void trueUpper() {
+	public void trueUpper() throws BooleanParserException {
 		for (String v : TRUE_VALUES) {
 			v = v.toUpperCase();
 			assertTrue("value: " + v, BooleanParser.parse(v));
@@ -52,7 +52,7 @@ public class BooleanParserTest {
 	}
 
 	@Test
-	public void falseLower() {
+	public void falseLower() throws BooleanParserException {
 		for (final String v : FALSE_VALUES) {
 			assertFalse("value: '" + v + "'", BooleanParser.parse(v));
 		}
@@ -62,7 +62,7 @@ public class BooleanParserTest {
 	}
 
 	@Test
-	public void falseUpper() {
+	public void falseUpper() throws BooleanParserException {
 		for (String v : FALSE_VALUES) {
 			v = v.toUpperCase();
 			assertFalse("value: " + v, BooleanParser.parse(v));
@@ -70,7 +70,7 @@ public class BooleanParserTest {
 	}
 
 	@Test
-	public void defaultLegal() {
+	public void defaultLegal() throws BooleanParserException {
 		assertTrue("unknown with default 1 is 1", BooleanParser.parse("unknown", "1"));
 		assertFalse("unknown with default 0 is 0", BooleanParser.parse("unknown", "0"));
 		assertTrue("1 with default 0 is 1", BooleanParser.parse("1", "0"));
