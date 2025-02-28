@@ -69,20 +69,16 @@ public class BooleanParserTest {
 		}
 	}
 
+	@Test
+	public void defaultLegal() {
+		assertTrue("unknown with default 1 is 1", BooleanParser.parse("unknown", "1"));
+		assertFalse("unknown with default 0 is 0", BooleanParser.parse("unknown", "0"));
+		assertTrue("1 with default 0 is 1", BooleanParser.parse("1", "0"));
+		assertFalse("0 with default 1 is 0", BooleanParser.parse("0", "1"));
+	}
 
 
 /*
-	sub testDefaultLegal {
-		my ($self) = @_;
-		plan tests => 4;
-
-		ok(Chleb::Utils::boolean('unknown', 1), 'unknown with default 1 is 1');
-		ok(!Chleb::Utils::boolean('unknown', 0), 'unknown with default 0 is 0');
-		ok(Chleb::Utils::boolean(1, 0), '1 with default 0 is 1');
-		ok(!Chleb::Utils::boolean(0, 1), '0 with default 1 is 0');
-
-		return EXIT_SUCCESS;
-	}
 
 	sub testDefaultIllegal {
 		my ($self) = @_;
