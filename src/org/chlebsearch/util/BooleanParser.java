@@ -1,14 +1,19 @@
 package org.chlebsearch.util;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class BooleanParser {
+
+	private static final List<String> TRUES = Arrays.asList("1", "true", "on", "yes");
+	private static final List<String> FALSES = Arrays.asList("0", "false", "off", "no");
 
 	private static boolean isTrue(String v) {
 		v = v.toLowerCase();
 
-		if (v.equals("1")) return true;
-		if (v.equals("true")) return true;
-		if (v.equals("on")) return true;
-		if (v.equals("yes")) return true;
+		for (final String trueValue : TRUES) {
+			if (v.equals(trueValue)) return true;
+		}
 
 		if (v.startsWith("enable")) return true;
 
@@ -18,11 +23,9 @@ public class BooleanParser {
 	private static boolean isFalse(String v) {
 		v = v.toLowerCase();
 
-		// TODO: Use an ArrayList (Arrays) to loop over these values
-		if (v.equals("0")) return true;
-		if (v.equals("false")) return true;
-		if (v.equals("off")) return true;
-		if (v.equals("no")) return true;
+		for (final String falseValue : FALSES) {
+			if (v.equals(falseValue)) return true;
+		}
 
 		if (v.startsWith("disable")) return true;
 
