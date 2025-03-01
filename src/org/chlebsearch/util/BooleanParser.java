@@ -35,22 +35,30 @@ public class BooleanParser {
 	public static boolean parse(String value, String defaultValue) throws BooleanParserException {
 		boolean defaultValueReturned = false;
 
+		// Let's run this block first so we trap invalid defaults even when they aren't used
 		if (defaultValue != null) {
 			if (isTrue(defaultValue)) {
 				defaultValueReturned = true;
 			} else if (!isFalse(defaultValue)) {
+				// nb. this is a developer issue, not an end-user issue
+				// TODO: do we need a separate exception for internal errors?
 				throw new BooleanParserException("Illegal default value: '" + defaultValue + "'");
 			}
 		}
 
-		if (value != null) {
+		if (value == null || value.length() == 0) { // We must fall-back to a default
+			if (defaultValue != null) return defaultValueReturned; // Apply default, if supplied/available
+			throw new BooleanParserException("Mandatory value not supplied"); // TODO missing key name
+		} else {
 			value = value.toLowerCase();
 
 			if (isTrue(value)) return true;
 			if (isFalse(value)) return false;
 		}
 
-		return defaultValueReturned;
+		// TODO: We don't know the key name
+		// TODO: Should the key be recorded against the exception object?
+		throw new BooleanParserException("Illegal user-supplied value: '" + value + "'");
 	}
 
 	public static boolean parse(final String value) throws BooleanParserException {
