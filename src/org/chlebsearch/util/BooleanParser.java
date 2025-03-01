@@ -9,8 +9,6 @@ public class BooleanParser {
 	private static final List<String> FALSE_VALUES = Arrays.asList("0", "false", "off", "no");
 
 	private static boolean isTrue(String v) {
-		v = v.toLowerCase();
-
 		for (final String trueValue : TRUE_VALUES) {
 			if (v.equals(trueValue)) return true;
 		}
@@ -21,8 +19,6 @@ public class BooleanParser {
 	}
 
 	private static boolean isFalse(String v) {
-		v = v.toLowerCase();
-
 		for (final String falseValue : FALSE_VALUES) {
 			if (v.equals(falseValue)) return true;
 		}
@@ -37,6 +33,7 @@ public class BooleanParser {
 
 		// Let's run this block first so we trap invalid defaults even when they aren't used
 		if (defaultValue != null) {
+			defaultValue = defaultValue.toLowerCase(); // TODO: not properly tested
 			if (isTrue(defaultValue)) {
 				defaultValueReturned = true;
 			} else if (!isFalse(defaultValue)) {
@@ -46,19 +43,22 @@ public class BooleanParser {
 			}
 		}
 
-		if (value == null || value.length() == 0) { // We must fall-back to a default
-			if (defaultValue != null) return defaultValueReturned; // Apply default, if supplied/available
-			throw new BooleanParserException("Mandatory value not supplied"); // TODO missing key name
-		} else {
-			value = value.toLowerCase();
+		if (value != null) {
+			value = value.trim();
+			if (value.length() > 0) {
+				value = value.toLowerCase();
 
-			if (isTrue(value)) return true;
-			if (isFalse(value)) return false;
+				if (isTrue(value)) return true;
+				if (isFalse(value)) return false;
+
+				throw new BooleanParserException("Illegal user-supplied value: '" + value + "'");
+			}
 		}
 
 		// TODO: We don't know the key name
 		// TODO: Should the key be recorded against the exception object?
-		throw new BooleanParserException("Illegal user-supplied value: '" + value + "'");
+		if (defaultValue != null) return defaultValueReturned; // Apply default, if supplied/available
+		throw new BooleanParserException("Mandatory value not supplied"); // TODO missing key name
 	}
 
 	public static boolean parse(final String value) throws BooleanParserException {

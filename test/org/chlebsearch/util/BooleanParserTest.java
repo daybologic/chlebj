@@ -149,4 +149,10 @@ public class BooleanParserTest {
 		configDefaultNone();
 		BooleanParser.parse("");
 	}
+
+	@Test
+	public void defaultNone_onlyWhitespacee() throws BooleanParserException {
+		configDefaultNone();
+		BooleanParser.parse(" ");
+	}
 }
