@@ -5,13 +5,13 @@ import java.util.List;
 
 public class BooleanParser {
 
-	private static final List<String> TRUES = Arrays.asList("1", "true", "on", "yes");
-	private static final List<String> FALSES = Arrays.asList("0", "false", "off", "no");
+	private static final List<String> TRUE_VALUES = Arrays.asList("1", "true", "on", "yes");
+	private static final List<String> FALSE_VALUES = Arrays.asList("0", "false", "off", "no");
 
 	private static boolean isTrue(String v) {
 		v = v.toLowerCase();
 
-		for (final String trueValue : TRUES) {
+		for (final String trueValue : TRUE_VALUES) {
 			if (v.equals(trueValue)) return true;
 		}
 
@@ -23,7 +23,7 @@ public class BooleanParser {
 	private static boolean isFalse(String v) {
 		v = v.toLowerCase();
 
-		for (final String falseValue : FALSES) {
+		for (final String falseValue : FALSE_VALUES) {
 			if (v.equals(falseValue)) return true;
 		}
 
