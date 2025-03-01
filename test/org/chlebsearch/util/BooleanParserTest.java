@@ -13,9 +13,6 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 
-/**
- * Helper utilities for testing Lambda functions.
- */
 public class BooleanParserTest {
 
 	private static final List<String> TRUE_VALUES = Arrays.asList(
