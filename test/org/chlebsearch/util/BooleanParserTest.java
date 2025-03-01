@@ -83,20 +83,24 @@ public class BooleanParserTest {
 	public ExpectedException exceptionRule = ExpectedException.none();
 
 	@Test
-	public void defaultIllegal() throws BooleanParserException {
+	public void defaultIllegal_stranger() throws BooleanParserException {
+		defaultIllegal("stranger");
+	}
+
+	@Test
+	public void defaultIllegal_1() throws BooleanParserException {
+		defaultIllegal("1");
+	}
+
+	@Test
+	public void defaultIllegal_0() throws BooleanParserException {
+		defaultIllegal("0");
+	}
+
+	private void defaultIllegal(final String value) throws BooleanParserException{
 		exceptionRule.expect(BooleanParserException.class);
 		exceptionRule.expectMessage("Illegal default value: 'stranger'");
 
-		final List<String> BASE_VALUES = Arrays.asList(
-			"unknown",
-			"1",
-			"0"
-		);
-
-		for (final String v : BASE_VALUES) {
-			BooleanParser.parse(v, "stranger");
-		}
-		// TODO: I think this methods needs breaking up, or the exception might not be tested correctly in all three cases
-		// make a new defaultIllegal_unknown/1/0?
+		BooleanParser.parse(value, "stranger");
 	}
 }
