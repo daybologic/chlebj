@@ -45,9 +45,41 @@ public class BooleanParserTest {
 	}
 
 	@Test
+	public void trueLowerWhitespaceLeft() throws BooleanParserException {
+		for (String v : TRUE_VALUES) {
+			v = "  " + v;
+			assertTrue("value: " + v, BooleanParser.parse(v));
+		}
+	}
+
+	@Test
+	public void trueLowerWhitespaceRight() throws BooleanParserException {
+		for (String v : TRUE_VALUES) {
+			v = v + "  ";
+			assertTrue("value: " + v, BooleanParser.parse(v));
+		}
+	}
+
+	@Test
 	public void trueUpper() throws BooleanParserException {
 		for (String v : TRUE_VALUES) {
 			v = v.toUpperCase();
+			assertTrue("value: " + v, BooleanParser.parse(v));
+		}
+	}
+
+	@Test
+	public void trueUpperWhitespaceLeft() throws BooleanParserException {
+		for (String v : TRUE_VALUES) {
+			v = "  " + v.toUpperCase();
+			assertTrue("value: " + v, BooleanParser.parse(v));
+		}
+	}
+
+	@Test
+	public void trueUpperWhitespaceRight() throws BooleanParserException {
+		for (String v : TRUE_VALUES) {
+			v = v.toUpperCase() + "  ";
 			assertTrue("value: " + v, BooleanParser.parse(v));
 		}
 	}
@@ -60,9 +92,41 @@ public class BooleanParserTest {
 	}
 
 	@Test
+	public void falseLowerWhitespaceLeft() throws BooleanParserException {
+		for (String v : FALSE_VALUES) {
+			v = "  " + v;
+			assertFalse("value: '" + v + "'", BooleanParser.parse(v));
+		}
+	}
+
+	@Test
+	public void falseLowerWhitespaceRight() throws BooleanParserException {
+		for (String v : FALSE_VALUES) {
+			v = v + "  ";
+			assertFalse("value: '" + v + "'", BooleanParser.parse(v));
+		}
+	}
+
+	@Test
 	public void falseUpper() throws BooleanParserException {
 		for (String v : FALSE_VALUES) {
 			v = v.toUpperCase();
+			assertFalse("value: " + v, BooleanParser.parse(v));
+		}
+	}
+
+	@Test
+	public void falseUpperWhitespaceLeft() throws BooleanParserException {
+		for (String v : FALSE_VALUES) {
+			v = "  " + v.toUpperCase();
+			assertFalse("value: " + v, BooleanParser.parse(v));
+		}
+	}
+
+	@Test
+	public void falseUpperWhitespaceRight() throws BooleanParserException {
+		for (String v : FALSE_VALUES) {
+			v = v.toUpperCase() + "  ";
 			assertFalse("value: " + v, BooleanParser.parse(v));
 		}
 	}
@@ -151,7 +215,7 @@ public class BooleanParserTest {
 	}
 
 	@Test
-	public void defaultNone_onlyWhitespacee() throws BooleanParserException {
+	public void defaultNone_onlyWhitespace() throws BooleanParserException {
 		configDefaultNone();
 		BooleanParser.parse(" ");
 	}
