@@ -35,10 +35,12 @@ public class BooleanParserTest {
 		"disables"
 	);
 
+	private static final String KEY = "marketing";
+
 	@Test
 	public void trueLower() throws BooleanParserException {
 		for (final String v : TRUE_VALUES) {
-			assertTrue("value: " + v, BooleanParser.parse(v));
+			assertTrue("value: " + v, BooleanParser.parse(KEY, v));
 		}
 	}
 
@@ -46,7 +48,7 @@ public class BooleanParserTest {
 	public void trueLowerWhitespaceLeft() throws BooleanParserException {
 		for (String v : TRUE_VALUES) {
 			v = "  " + v;
-			assertTrue("value: " + v, BooleanParser.parse(v));
+			assertTrue("value: " + v, BooleanParser.parse(KEY, v));
 		}
 	}
 
@@ -54,7 +56,7 @@ public class BooleanParserTest {
 	public void trueLowerWhitespaceRight() throws BooleanParserException {
 		for (String v : TRUE_VALUES) {
 			v = v + "  ";
-			assertTrue("value: " + v, BooleanParser.parse(v));
+			assertTrue("value: " + v, BooleanParser.parse(KEY, v));
 		}
 	}
 
@@ -62,7 +64,7 @@ public class BooleanParserTest {
 	public void trueUpper() throws BooleanParserException {
 		for (String v : TRUE_VALUES) {
 			v = v.toUpperCase();
-			assertTrue("value: " + v, BooleanParser.parse(v));
+			assertTrue("value: " + v, BooleanParser.parse(KEY, v));
 		}
 	}
 
@@ -70,7 +72,7 @@ public class BooleanParserTest {
 	public void trueUpperWhitespaceLeft() throws BooleanParserException {
 		for (String v : TRUE_VALUES) {
 			v = "  " + v.toUpperCase();
-			assertTrue("value: " + v, BooleanParser.parse(v));
+			assertTrue("value: " + v, BooleanParser.parse(KEY, v));
 		}
 	}
 
@@ -78,14 +80,14 @@ public class BooleanParserTest {
 	public void trueUpperWhitespaceRight() throws BooleanParserException {
 		for (String v : TRUE_VALUES) {
 			v = v.toUpperCase() + "  ";
-			assertTrue("value: " + v, BooleanParser.parse(v));
+			assertTrue("value: " + v, BooleanParser.parse(KEY, v));
 		}
 	}
 
 	@Test
 	public void falseLower() throws BooleanParserException {
 		for (final String v : FALSE_VALUES) {
-			assertFalse("value: '" + v + "'", BooleanParser.parse(v));
+			assertFalse("value: '" + v + "'", BooleanParser.parse(KEY, v));
 		}
 	}
 
@@ -93,7 +95,7 @@ public class BooleanParserTest {
 	public void falseLowerWhitespaceLeft() throws BooleanParserException {
 		for (String v : FALSE_VALUES) {
 			v = "  " + v;
-			assertFalse("value: '" + v + "'", BooleanParser.parse(v));
+			assertFalse("value: '" + v + "'", BooleanParser.parse(KEY, v));
 		}
 	}
 
@@ -101,7 +103,7 @@ public class BooleanParserTest {
 	public void falseLowerWhitespaceRight() throws BooleanParserException {
 		for (String v : FALSE_VALUES) {
 			v = v + "  ";
-			assertFalse("value: '" + v + "'", BooleanParser.parse(v));
+			assertFalse("value: '" + v + "'", BooleanParser.parse(KEY, v));
 		}
 	}
 
@@ -109,7 +111,7 @@ public class BooleanParserTest {
 	public void falseUpper() throws BooleanParserException {
 		for (String v : FALSE_VALUES) {
 			v = v.toUpperCase();
-			assertFalse("value: " + v, BooleanParser.parse(v));
+			assertFalse("value: " + v, BooleanParser.parse(KEY, v));
 		}
 	}
 
@@ -117,7 +119,7 @@ public class BooleanParserTest {
 	public void falseUpperWhitespaceLeft() throws BooleanParserException {
 		for (String v : FALSE_VALUES) {
 			v = "  " + v.toUpperCase();
-			assertFalse("value: " + v, BooleanParser.parse(v));
+			assertFalse("value: " + v, BooleanParser.parse(KEY, v));
 		}
 	}
 
@@ -125,7 +127,7 @@ public class BooleanParserTest {
 	public void falseUpperWhitespaceRight() throws BooleanParserException {
 		for (String v : FALSE_VALUES) {
 			v = v.toUpperCase() + "  ";
-			assertFalse("value: " + v, BooleanParser.parse(v));
+			assertFalse("value: " + v, BooleanParser.parse(KEY, v));
 		}
 	}
 
@@ -134,37 +136,37 @@ public class BooleanParserTest {
 
 	private void configUserSupplied() {
 		exceptionRuleIllegalUserSupplied.expect(BooleanParserUserException.class);
-		exceptionRuleIllegalUserSupplied.expectMessage("Illegal user-supplied value: 'unknown'");
+		exceptionRuleIllegalUserSupplied.expectMessage("Illegal user-supplied value: 'unknown' for key '" + KEY + "'");
 	}
 
 	@Test
 	public void illegalUserSuppliedTrue() throws BooleanParserException {
 		configUserSupplied();
-		assertTrue("unknown with default 1", BooleanParser.parse("unknown", "1"));
+		assertTrue("unknown with default 1", BooleanParser.parse(KEY, "unknown", "1"));
 	}
 
 	@Test
 	public void illegalUserSuppliedFalse() throws BooleanParserException {
 		configUserSupplied();
-		assertFalse("unknown with default 0", BooleanParser.parse("unknown", "0"));
+		assertFalse("unknown with default 0", BooleanParser.parse(KEY, "unknown", "0"));
 	}
 
 	@Test
 	public void defaultLegalUnused() throws BooleanParserException {
-		assertTrue("1 with default 0", BooleanParser.parse("1", "0"));
-		assertFalse("0 with default 1", BooleanParser.parse("0", "1"));
+		assertTrue("1 with default 0", BooleanParser.parse(KEY, "1", "0"));
+		assertFalse("0 with default 1", BooleanParser.parse(KEY, "0", "1"));
 	}
 
 	@Test
 	public void defaultLegalUsed() throws BooleanParserException {
-		assertTrue("null with default TRUE", BooleanParser.parse(null, "TRUE"));
-		assertFalse("null with default FALSE", BooleanParser.parse(null, "FALSE"));
+		assertTrue("null with default TRUE", BooleanParser.parse(KEY, null, "TRUE"));
+		assertFalse("null with default FALSE", BooleanParser.parse(KEY, null, "FALSE"));
 
-		assertTrue("null with default 1", BooleanParser.parse(null, "1"));
-		assertFalse("null with default 0", BooleanParser.parse(null, "0"));
+		assertTrue("null with default 1", BooleanParser.parse(KEY, null, "1"));
+		assertFalse("null with default 0", BooleanParser.parse(KEY, null, "0"));
 
-		assertTrue("empty with default 1", BooleanParser.parse("", "1"));
-		assertFalse("empty with default 0", BooleanParser.parse("", "0"));
+		assertTrue("empty with default 1", BooleanParser.parse(KEY, "", "1"));
+		assertFalse("empty with default 0", BooleanParser.parse(KEY, "", "0"));
 	}
 
 	@Test
@@ -207,7 +209,7 @@ public class BooleanParserTest {
 
 	private void configDefaultIllegal(final String defaultValue) {
 		exceptionRuleIllegalDefault.expect(BooleanParserSystemException.class);
-		exceptionRuleIllegalDefault.expectMessage("Illegal default value: '" + defaultValue + "'");
+		exceptionRuleIllegalDefault.expectMessage("Illegal default value: '" + defaultValue + "' for key '" + KEY + "'");
 	}
 
 	private void defaultIllegal(final String value) throws BooleanParserException{
@@ -216,7 +218,7 @@ public class BooleanParserTest {
 
 	private void defaultIllegal(final String value, final String defaultValue) throws BooleanParserException{
 		configDefaultIllegal(defaultValue);
-		BooleanParser.parse(value, defaultValue);
+		BooleanParser.parse(KEY, value, defaultValue);
 	}
 
 	@Rule
@@ -224,24 +226,24 @@ public class BooleanParserTest {
 
 	private void configDefaultNone() {
 		exceptionRuleIllegalDefault.expect(BooleanParserUserException.class);
-		exceptionRuleIllegalDefault.expectMessage("Mandatory value not supplied");
+		exceptionRuleIllegalDefault.expectMessage("Mandatory value for key '" + KEY + "' not supplied");
 	}
 
 	@Test
 	public void defaultNone_null() throws BooleanParserException {
 		configDefaultNone();
-		BooleanParser.parse(null);
+		BooleanParser.parse(KEY, null);
 	}
 
 	@Test
 	public void defaultNone_empty() throws BooleanParserException {
 		configDefaultNone();
-		BooleanParser.parse("");
+		BooleanParser.parse(KEY, "");
 	}
 
 	@Test
 	public void defaultNone_onlyWhitespace() throws BooleanParserException {
 		configDefaultNone();
-		BooleanParser.parse(" ");
+		BooleanParser.parse(KEY, " ");
 	}
 }

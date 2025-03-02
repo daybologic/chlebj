@@ -28,7 +28,7 @@ public class BooleanParser {
 		return false;
 	}
 
-	public static boolean parse(String value, String defaultValue) throws BooleanParserException {
+	public static boolean parse(final String key, String value, String defaultValue) throws BooleanParserException {
 		boolean defaultValueReturned = false;
 
 		// Let's run this block first so we trap invalid defaults even when they aren't used
@@ -37,7 +37,11 @@ public class BooleanParser {
 			if (isTrue(defaultValue)) {
 				defaultValueReturned = true;
 			} else if (!isFalse(defaultValue)) {
-				throw new BooleanParserSystemException("Illegal default value: '" + defaultValue + "'");
+				throw new BooleanParserSystemException(String.format(
+					"Illegal default value: '%s' for key '%s'",
+					defaultValue,
+					key
+				));
 			}
 		}
 
@@ -49,17 +53,20 @@ public class BooleanParser {
 				if (isTrue(value)) return true;
 				if (isFalse(value)) return false;
 
-				throw new BooleanParserUserException("Illegal user-supplied value: '" + value + "'");
+				throw new BooleanParserUserException(String.format(
+					"Illegal user-supplied value: '%s' for key '%s'",
+					value,
+					key
+				));
 			}
 		}
 
-		// TODO: We don't know the key name
 		// TODO: Should the key be recorded against the exception object?
 		if (defaultValue != null) return defaultValueReturned; // Apply default, if supplied/available
-		throw new BooleanParserUserException("Mandatory value not supplied"); // TODO missing key name
+		throw new BooleanParserUserException(String.format("Mandatory value for key '%s' not supplied", key));
 	}
 
-	public static boolean parse(final String value) throws BooleanParserException {
-		return parse(value, null);
+	public static boolean parse(final String key, final String value) throws BooleanParserException {
+		return parse(key, value, null);
 	}
 }
