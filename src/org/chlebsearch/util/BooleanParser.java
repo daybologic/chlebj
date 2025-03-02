@@ -33,7 +33,7 @@ public class BooleanParser {
 
 		// Let's run this block first so we trap invalid defaults even when they aren't used
 		if (defaultValue != null) {
-			defaultValue = defaultValue.toLowerCase(); // TODO: not properly tested
+			defaultValue = defaultValue.toLowerCase();
 			if (isTrue(defaultValue)) {
 				defaultValueReturned = true;
 			} else if (!isFalse(defaultValue)) {

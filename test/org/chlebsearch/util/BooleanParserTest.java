@@ -157,6 +157,9 @@ public class BooleanParserTest {
 
 	@Test
 	public void defaultLegalUsed() throws BooleanParserException {
+		assertTrue("null with default TRUE", BooleanParser.parse(null, "TRUE"));
+		assertFalse("null with default FALSE", BooleanParser.parse(null, "FALSE"));
+
 		assertTrue("null with default 1", BooleanParser.parse(null, "1"));
 		assertFalse("null with default 0", BooleanParser.parse(null, "0"));
 
