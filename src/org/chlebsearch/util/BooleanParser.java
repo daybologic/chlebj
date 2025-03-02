@@ -37,9 +37,7 @@ public class BooleanParser {
 			if (isTrue(defaultValue)) {
 				defaultValueReturned = true;
 			} else if (!isFalse(defaultValue)) {
-				// nb. this is a developer issue, not an end-user issue
-				// TODO: do we need a separate exception for internal errors?
-				throw new BooleanParserException("Illegal default value: '" + defaultValue + "'");
+				throw new BooleanParserSystemException("Illegal default value: '" + defaultValue + "'");
 			}
 		}
 
@@ -51,14 +49,14 @@ public class BooleanParser {
 				if (isTrue(value)) return true;
 				if (isFalse(value)) return false;
 
-				throw new BooleanParserException("Illegal user-supplied value: '" + value + "'");
+				throw new BooleanParserUserException("Illegal user-supplied value: '" + value + "'");
 			}
 		}
 
 		// TODO: We don't know the key name
 		// TODO: Should the key be recorded against the exception object?
 		if (defaultValue != null) return defaultValueReturned; // Apply default, if supplied/available
-		throw new BooleanParserException("Mandatory value not supplied"); // TODO missing key name
+		throw new BooleanParserUserException("Mandatory value not supplied"); // TODO missing key name
 	}
 
 	public static boolean parse(final String value) throws BooleanParserException {

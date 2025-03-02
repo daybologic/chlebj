@@ -1,6 +1,6 @@
 package org.chlebsearch.util;
 
-public class BooleanParserException extends Throwable {
+abstract public class BooleanParserException extends Throwable {
 
 	public BooleanParserException() {
 		super();

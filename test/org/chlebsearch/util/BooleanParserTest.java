@@ -133,7 +133,7 @@ public class BooleanParserTest {
 	public ExpectedException exceptionRuleIllegalUserSupplied = ExpectedException.none();
 
 	private void configUserSupplied() {
-		exceptionRuleIllegalUserSupplied.expect(BooleanParserException.class);
+		exceptionRuleIllegalUserSupplied.expect(BooleanParserUserException.class);
 		exceptionRuleIllegalUserSupplied.expectMessage("Illegal user-supplied value: 'unknown'");
 	}
 
@@ -206,7 +206,7 @@ public class BooleanParserTest {
 	public ExpectedException exceptionRuleIllegalDefault = ExpectedException.none();
 
 	private void configDefaultIllegal(final String defaultValue) {
-		exceptionRuleIllegalDefault.expect(BooleanParserException.class);
+		exceptionRuleIllegalDefault.expect(BooleanParserSystemException.class);
 		exceptionRuleIllegalDefault.expectMessage("Illegal default value: '" + defaultValue + "'");
 	}
 
@@ -223,7 +223,7 @@ public class BooleanParserTest {
 	public ExpectedException exceptionRuleNoDefault = ExpectedException.none();
 
 	private void configDefaultNone() {
-		exceptionRuleIllegalDefault.expect(BooleanParserException.class);
+		exceptionRuleIllegalDefault.expect(BooleanParserUserException.class);
 		exceptionRuleIllegalDefault.expectMessage("Mandatory value not supplied");
 	}
 
