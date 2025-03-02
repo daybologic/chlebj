@@ -6,11 +6,11 @@ public class BooleanParserSystemException extends BooleanParserException {
 		super();
 	}
 
-	public BooleanParserSystemException(String errorMsg) {
-		super(errorMsg);
+	public BooleanParserSystemException(final String key, final String errorMsg) {
+		super(key, errorMsg);
 	}
 
-	public BooleanParserSystemException(String errorMsg, Exception e) {
-		super(errorMsg, e);
+	public BooleanParserSystemException(final String key, final String errorMsg, final Exception e) {
+		super(key, errorMsg, e);
 	}
 }

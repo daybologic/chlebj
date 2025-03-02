@@ -37,7 +37,7 @@ public class BooleanParser {
 			if (isTrue(defaultValue)) {
 				defaultValueReturned = true;
 			} else if (!isFalse(defaultValue)) {
-				throw new BooleanParserSystemException(String.format(
+				throw new BooleanParserSystemException(key, String.format(
 					"Illegal default value: '%s' for key '%s'",
 					defaultValue,
 					key
@@ -53,7 +53,7 @@ public class BooleanParser {
 				if (isTrue(value)) return true;
 				if (isFalse(value)) return false;
 
-				throw new BooleanParserUserException(String.format(
+				throw new BooleanParserUserException(key, String.format(
 					"Illegal user-supplied value: '%s' for key '%s'",
 					value,
 					key
@@ -61,9 +61,8 @@ public class BooleanParser {
 			}
 		}
 
-		// TODO: Should the key be recorded against the exception object?
 		if (defaultValue != null) return defaultValueReturned; // Apply default, if supplied/available
-		throw new BooleanParserUserException(String.format("Mandatory value for key '%s' not supplied", key));
+		throw new BooleanParserUserException(key, String.format("Mandatory value for key '%s' not supplied", key));
 	}
 
 	public static boolean parse(final String key, final String value) throws BooleanParserException {
