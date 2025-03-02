@@ -179,17 +179,41 @@ public class BooleanParserTest {
 		defaultIllegal("0");
 	}
 
+	@Test
+	public void defaultIllegal_1wsLeft() throws BooleanParserException {
+		defaultIllegal("0", " 1"); // whitespace not allowed
+	}
+
+	@Test
+	public void defaultIllegal_1wsRight() throws BooleanParserException {
+		defaultIllegal("0", "1 "); // whitespace not allowed
+	}
+
+	@Test
+	public void defaultIllegal_0wsLeft() throws BooleanParserException {
+		defaultIllegal("0", " 0"); // whitespace not allowed
+	}
+
+	@Test
+	public void defaultIllegal_0wsRight() throws BooleanParserException {
+		defaultIllegal("0", "0 "); // whitespace not allowed
+	}
+
 	@Rule
 	public ExpectedException exceptionRuleIllegalDefault = ExpectedException.none();
 
-	private void configDefaultIllegal() {
+	private void configDefaultIllegal(final String defaultValue) {
 		exceptionRuleIllegalDefault.expect(BooleanParserException.class);
-		exceptionRuleIllegalDefault.expectMessage("Illegal default value: 'stranger'");
+		exceptionRuleIllegalDefault.expectMessage("Illegal default value: '" + defaultValue + "'");
 	}
 
 	private void defaultIllegal(final String value) throws BooleanParserException{
-		configDefaultIllegal();
-		BooleanParser.parse(value, "stranger");
+		defaultIllegal(value, "stranger");
+	}
+
+	private void defaultIllegal(final String value, final String defaultValue) throws BooleanParserException{
+		configDefaultIllegal(defaultValue);
+		BooleanParser.parse(value, defaultValue);
 	}
 
 	@Rule
