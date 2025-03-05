@@ -2,6 +2,8 @@ package org.chlebsearch.util;
 
 public class BooleanParserSystemException extends BooleanParserException {
 
+	private static final long serialVersionUID = 8690463251843485437L;
+
 	public BooleanParserSystemException() {
 		super();
 	}
